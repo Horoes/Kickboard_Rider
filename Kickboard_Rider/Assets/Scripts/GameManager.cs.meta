@@ -3,7 +3,13 @@ guid: 8568c73c2b71e6e43a48e07b646744cf
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - grassTilePrefab: {fileID: 5032960857311713091, guid: 7844d3702d09b5749bb8e3e7a654c274,
+      type: 3}
+  - roadTilePrefab: {fileID: 7908045677402268676, guid: d9bf79e86b026804cb3863803aa185c0,
+      type: 3}
+  - roadTile2Prefab: {instanceID: 0}
+  - sandTilePrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
