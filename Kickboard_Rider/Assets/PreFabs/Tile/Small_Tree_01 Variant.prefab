@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small_Tree_01 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6265057287259961053, guid: 2bc6c41da3edcef42ac4f6585ae1e05c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Tree
+      objectReference: {fileID: 0}
     - target: {fileID: 6265057287260187389, guid: 2bc6c41da3edcef42ac4f6585ae1e05c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -71,6 +76,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2788657487260959284}
+    - targetCorrespondingSourceObject: {fileID: 6265057287259961053, guid: 2bc6c41da3edcef42ac4f6585ae1e05c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3471797848652748208}
   m_SourcePrefab: {fileID: 100100000, guid: 2bc6c41da3edcef42ac4f6585ae1e05c, type: 3}
 --- !u!1 &5996341902752615605 stripped
 GameObject:
@@ -99,3 +108,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 2.8161125, z: 3}
   m_Center: {x: 0.1524036, y: 1.4080563, z: -0.12234211}
+--- !u!114 &-3471797848652748208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5996341902752615605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30aa6c2d90d2294da649ac5259d5a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

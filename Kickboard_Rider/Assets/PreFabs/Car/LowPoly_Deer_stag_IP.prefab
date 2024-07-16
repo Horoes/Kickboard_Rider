@@ -1415,9 +1415,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6428010023488039325}
   - component: {fileID: 6428010023480280659}
+  - component: {fileID: -4985276247515312133}
   m_Layer: 0
   m_Name: LowPoly_Deer_stag_IP
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1432,7 +1433,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6428010023488039347}
@@ -1449,7 +1450,7 @@ Animator:
   m_GameObject: {fileID: 6428010023487550973}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: de9fe0d01d1e94d40955c55ac0b4e5f9, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 30c4a6f5ab0823b46ac2a2baef8cd97a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1460,6 +1461,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-4985276247515312133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6428010023487550973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 277097546aa0f3f409b3fbfbb2614aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6428010023487550975
 GameObject:
   m_ObjectHideFlags: 0

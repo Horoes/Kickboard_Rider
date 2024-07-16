@@ -7,16 +7,24 @@ public class GrassTileTreeSpawner : MonoBehaviour
     [SerializeField]
     private GameObject[] treePrefabs = new GameObject[3];
     [SerializeField]
-    private GameObject[] animalPrefabs = new GameObject[6];
+    private GameObject[] animalPrefabs = new GameObject[3];
 
+
+    public float animalSpeed = 5f; 
     public Vector3 animalScale = new Vector3((float)1.5, (float)1.5, (float)1.5);
     private float tileWidth = 69f;
     private float tileHeight = 3f;
     private int treeCount = 3; // 8번째 칸부터 16번째 칸에 랜덤으로 생성할 나무의 개수
+    private GameObject selectedAnimalPrefab;
+    private float spawnX;
+
 
     void Start()
     {
+        selectedAnimalPrefab = animalPrefabs[Random.Range(0, animalPrefabs.Length)];
+        spawnX = Random.value > 0.5f ? 0.45f : -0.45f;
         SpawnTrees();
+        SpawnAnimal();
     }
 
     void SpawnTrees()
@@ -70,5 +78,34 @@ public class GrassTileTreeSpawner : MonoBehaviour
                 treeInstance.transform.SetParent(transform);
             }
         }
+    }
+
+    void SpawnAnimal()
+    {
+        Vector3 spawnPosotion = new Vector3(spawnX, 0.5f, 0f);
+        Quaternion spawnRotation = Quaternion.Euler(0, spawnX > 0 ? -90 : 90, 0);
+
+        GameObject animalInstance = Instantiate(selectedAnimalPrefab, transform.TransformPoint(spawnPosotion), spawnRotation);
+
+        animalInstance.transform.localScale = animalScale;
+
+
+        StartCoroutine(MoveAnimal(animalInstance, spawnX));
+    }
+
+    IEnumerator MoveAnimal(GameObject animal, float direction)
+    {
+        Vector3 moveDirection = direction > 0 ? Vector3.left : Vector3.right;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 13f)
+        {
+            animal.transform.Translate(moveDirection * animalSpeed * Time.deltaTime, Space.World);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 5초 후 차를 파괴
+        Destroy(animal);
     }
 }

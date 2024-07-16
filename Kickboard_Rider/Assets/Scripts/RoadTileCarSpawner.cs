@@ -25,7 +25,9 @@ public class RoadTileCarSpawner : MonoBehaviour
         // x 좌표 방향을 랜덤하게 한 번 설정
         spawnX = Random.value > 0.5f ? 0.45f : -0.45f;
 
-        spawnCoroutine = StartCoroutine(SpawnCarsPeriodically());
+        // 처음 스폰을 0~2초 사이의 랜덤 시간 후에 시작
+        float initialDelay = Random.Range(0f, 2f);
+        StartCoroutine(StartSpawning(initialDelay));
     }
 
     void OnDestroy()
@@ -35,6 +37,12 @@ public class RoadTileCarSpawner : MonoBehaviour
         {
             StopCoroutine(spawnCoroutine);
         }
+    }
+
+    IEnumerator StartSpawning(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        spawnCoroutine = StartCoroutine(SpawnCarsPeriodically());
     }
 
     IEnumerator SpawnCarsPeriodically()
