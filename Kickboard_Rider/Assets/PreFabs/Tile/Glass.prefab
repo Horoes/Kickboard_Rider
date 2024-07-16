@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2138073559051683534}
   - component: {fileID: 1310348034822208325}
   - component: {fileID: -7226904875000209023}
+  - component: {fileID: 4722400084201700096}
   m_Layer: 0
   m_Name: Glass
   m_TagString: Untagged
@@ -126,4 +127,23 @@ MonoBehaviour:
   - {fileID: 826732438939300208, guid: 98464a2e57262414daae1333f4edca31, type: 3}
   - {fileID: 6428010023487550973, guid: 5bcdb59eca9b344428cdb7ecd14e650b, type: 3}
   - {fileID: 683685084093438854, guid: 7561db6569c203a44ace93ac1b8943b9, type: 3}
+  animalSpeed: 5
   animalScale: {x: 1.5, y: 1.5, z: 1.5}
+--- !u!114 &4722400084201700096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5032960857311713091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2f0184cb3516141963ec286623cd24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileType: 1
+  obstaclePrefabs:
+  - {fileID: 683685084093438854, guid: 7561db6569c203a44ace93ac1b8943b9, type: 3}
+  - {fileID: 826732438939300208, guid: 98464a2e57262414daae1333f4edca31, type: 3}
+  - {fileID: 6428010023487550973, guid: 5bcdb59eca9b344428cdb7ecd14e650b, type: 3}
+  obstacleSpeed: 5

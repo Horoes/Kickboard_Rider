@@ -24,7 +24,7 @@ public class GrassTileTreeSpawner : MonoBehaviour
         selectedAnimalPrefab = animalPrefabs[Random.Range(0, animalPrefabs.Length)];
         spawnX = Random.value > 0.5f ? 0.45f : -0.45f;
         SpawnTrees();
-        SpawnAnimal();
+        //SpawnAnimal();
     }
 
     void SpawnTrees()

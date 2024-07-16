@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3726284444654008707}
   - component: {fileID: 1354089941865762650}
   - component: {fileID: 4197269323915829907}
-  - component: {fileID: -5432335455348634749}
+  - component: {fileID: -7018437613969967780}
   m_Layer: 0
   m_Name: Road
   m_TagString: Untagged
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-5432335455348634749
+--- !u!114 &-7018437613969967780
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,17 +115,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7908045677402268676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bd3801b5bcb07418cff3c727450dc0, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b2f0184cb3516141963ec286623cd24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carPrefabs:
+  obstaclePrefabs:
   - {fileID: 86183805417971518, guid: 5e1d5fb11aa4d4d40a8e4f86b35e721c, type: 3}
   - {fileID: 9155091965018200523, guid: 53b8291c8f631f84aa7f7846888508b5, type: 3}
   - {fileID: 5685862338051279902, guid: d15dec5488252d24d964906f7990b5ff, type: 3}
   - {fileID: 6199402866196414042, guid: dc2c9824352d6d04ba3e9e30d9c48472, type: 3}
   - {fileID: 7447828227911366909, guid: f2c8ad4319c49e945981db77a3e5edd2, type: 3}
   - {fileID: 3121111299394615021, guid: a1285c50c8a47724bbd2cdeb77db797e, type: 3}
-  carSpeed: 5
-  relativeSpawnPosition: {x: 0, y: 0, z: -1}
-  endPoint: {fileID: 0}
-  carScale: {x: 1, y: 1, z: 1}
+  obstacleSpeed: 5
