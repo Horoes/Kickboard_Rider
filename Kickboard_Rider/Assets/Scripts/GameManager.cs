@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,13 +18,15 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> tilePrefabs;
     private float zPosition = 0f;
-    private int initialTileCount = 40;
-    private Queue<GameObject> recentTiles;
+    private int initialTileCount = 40; // 초기 타일 수
+    private int maxTileCount = 50; // 최대 타일 수
+    private Queue<GameObject> recentTiles = new Queue<GameObject>();
     private int consecutiveRoadCount = 0;
+    private int score = 0;
+    public TextMeshProUGUI scoreText;
 
     private void Awake()
     {
-        // 싱글톤 인스턴스 설정
         if (Instance == null)
         {
             Instance = this;
@@ -45,12 +48,12 @@ public class GameManager : MonoBehaviour
             sandTilePrefab
         };
 
-        recentTiles = new Queue<GameObject>();
-
         for (int i = 0; i < initialTileCount; i++)
         {
             GenerateTile();
         }
+
+        UpdateScoreText();
     }
 
     void Update()
@@ -61,7 +64,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void GenerateTile()
+    public void GenerateTile()
     {
         GameObject selectedPrefab = SelectTilePrefab();
 
@@ -81,11 +84,12 @@ public class GameManager : MonoBehaviour
         GameObject newTile = Instantiate(selectedPrefab, new Vector3(0, 0, zPosition), Quaternion.identity);
         zPosition += 3f;
 
-        recentTiles.Enqueue(selectedPrefab);
+        recentTiles.Enqueue(newTile);
 
-        if (recentTiles.Count > 2)
+        if (recentTiles.Count > maxTileCount)
         {
-            recentTiles.Dequeue();
+            GameObject oldTile = recentTiles.Dequeue();
+            Destroy(oldTile);
         }
     }
 
@@ -105,5 +109,30 @@ public class GameManager : MonoBehaviour
         {
             return sandTilePrefab;
         }
+    }
+
+    public void IncreaseScore()
+    {
+        score++;
+        UpdateScoreText();
+        Debug.Log("Score: " + score);
+    }
+
+    void UpdateScoreText()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = score.ToString();
+        }
+    }
+
+    public void PauseGame()
+    {
+        Debug.Log("Game paused.");
+    }
+
+    public void ResumeGame()
+    {
+        Debug.Log("Game resumed.");
     }
 }

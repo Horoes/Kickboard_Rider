@@ -14,11 +14,11 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField]
     private float obstacleSpeed = 5f;
 
-
     private Coroutine spawnCoroutine;
     private GameObject selectedPrefab;
     private float spawnInterval;
     private float spawnX;
+
     void Start()
     {
         // 첫 번째 스폰 시 랜덤한 차 프리팹 선택
@@ -26,7 +26,7 @@ public class ObstacleSpawner : MonoBehaviour
 
         // 2초에서 4초 사이의 랜덤 생성 주기 설정
         spawnInterval = Random.Range(2f, 4f);
-        obstacleSpeed = Random.Range(5f,10f);
+        obstacleSpeed = Random.Range(5f, 10f);
 
         switch (tileType)
         {
@@ -56,6 +56,12 @@ public class ObstacleSpawner : MonoBehaviour
         {
             StopCoroutine(spawnCoroutine);
         }
+
+        // 타일이 파괴될 때 해당 타일의 모든 자식 객체(장애물)도 함께 파괴합니다.
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     IEnumerator StartSpawning(float delay)
@@ -75,12 +81,11 @@ public class ObstacleSpawner : MonoBehaviour
 
     void SpawnObstacle()
     {
-        
         Vector3 spawnPosition = new Vector3(spawnX, 1.5f, 0f);
         Quaternion spawnRotation = Quaternion.Euler(0, spawnX > 0 ? -90 : 90, 0); // -90도 또는 90도 회전한 상태로 스폰
 
         GameObject carInstance = Instantiate(selectedPrefab, transform.TransformPoint(spawnPosition), spawnRotation);
-
+        carInstance.transform.parent = transform; // 장애물을 타일의 자식으로 설정
 
         // Obstacle 이동
         StartCoroutine(MoveCar(carInstance, spawnX, obstacleSpeed));
@@ -93,12 +98,21 @@ public class ObstacleSpawner : MonoBehaviour
         float destroyTime = 65 / speed;
         while (elapsedTime < destroyTime)
         {
-            obstacle.transform.Translate(moveDirection * obstacleSpeed * Time.deltaTime, Space.World);
+            // 객체가 파괴되었는지 확인
+            if (obstacle == null)
+            {
+                yield break; // 객체가 null이면 코루틴을 종료
+            }
+
+            obstacle.transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         // 5초 후 차를 파괴
-        Destroy(obstacle);
+        if (obstacle != null)
+        {
+            Destroy(obstacle);
+        }
     }
 }

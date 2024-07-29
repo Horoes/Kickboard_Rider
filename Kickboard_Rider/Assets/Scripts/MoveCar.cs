@@ -18,4 +18,10 @@ public class MoveCar : MonoBehaviour
         // 매 프레임마다 차량을 로컬 좌표계에서 정방향(앞쪽)으로 이동
         transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Car collided with " + other.gameObject.name);
+    }
+
 }

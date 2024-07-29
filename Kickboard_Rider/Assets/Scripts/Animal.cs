@@ -19,4 +19,26 @@ public class Animal : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
+            if (player != null && !player.isHelmet)
+            {
+                Debug.Log("플레이어 충돌, isHelmet is false");
+                // 추가로 실행할 코드 작성
+                
+            }
+            else if (player != null && player.isHelmet)
+            {
+                Debug.Log("플레이어 충돌, isHelmet is true");
+                player.isHelmet = false;
+            }
+        }
+
+        Destroy(gameObject);
+    }
+
 }

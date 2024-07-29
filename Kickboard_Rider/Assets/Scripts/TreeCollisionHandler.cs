@@ -19,4 +19,31 @@ public class TreeCollisionHandler : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
+            if (player != null && !player.isHelmet)
+            {
+                Debug.Log("플레이어 충돌, isHelmet is false");
+                // 추가로 실행할 코드 작성
+                GameManager gameManager = GameManager.Instance;
+                gameManager.PauseGame();
+            }
+            else if(player != null && player.isHelmet)
+            {
+                Debug.Log("플레이어 충돌, isHelmet is true");
+                player.isHelmet = false;
+            }
+        }
+
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Tree collided with: " + collision.gameObject.name);
+    }
 }

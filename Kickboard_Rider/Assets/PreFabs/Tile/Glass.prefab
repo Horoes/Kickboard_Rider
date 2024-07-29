@@ -123,12 +123,6 @@ MonoBehaviour:
   - {fileID: 4567800245696916108, guid: d81ae1ec4a6a67e4db6f06db3df986ed, type: 3}
   - {fileID: 5381128279541754800, guid: 5bbf3b3be52f2e2418df2e327dc010fb, type: 3}
   - {fileID: 5996341902752615605, guid: 2fcc7e34ff5992b478f0ab87a068fe6d, type: 3}
-  animalPrefabs:
-  - {fileID: 826732438939300208, guid: 98464a2e57262414daae1333f4edca31, type: 3}
-  - {fileID: 6428010023487550973, guid: 5bcdb59eca9b344428cdb7ecd14e650b, type: 3}
-  - {fileID: 683685084093438854, guid: 7561db6569c203a44ace93ac1b8943b9, type: 3}
-  animalSpeed: 5
-  animalScale: {x: 1.5, y: 1.5, z: 1.5}
 --- !u!114 &4722400084201700096
 MonoBehaviour:
   m_ObjectHideFlags: 0
