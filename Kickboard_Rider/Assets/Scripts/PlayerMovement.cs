@@ -4,26 +4,23 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 200.0f; // 이동 속도
-    public float moveDistance = 3.0f; // 한 번에 이동할 거리
-    public float minX = -12.0f; // X 좌표 최소값
-    public float maxX = 12.0f; // X 좌표 최대값
+    public float speed = 200.0f;
+    public float moveDistance = 3.0f;
+    public float minX = -12.0f;
+    public float maxX = 12.0f;
     private Vector3 targetPosition;
     private bool isMoving = false;
     private bool useRightFoot = true;
-    private Vector3 lastTilePosition; // 마지막 타일 위치
+    private Vector3 lastTilePosition;
     public bool isHelmet = false;
-    private float maxReachedZ = -6f; // 최고로 갔던 Z 좌표 초기값
-    private float maxBackwardZ = -6f; // 뒤로 갈 수 있는 최대 Z 좌표 초기값
+    private float maxReachedZ = -6f;
+    private float maxBackwardZ = -6f;
 
     void Start()
     {
-        targetPosition = new Vector3(0, 1, -6); // 초기 위치 설정
+        targetPosition = new Vector3(0, 1, -6);
         transform.position = targetPosition;
-        lastTilePosition = targetPosition; // 초기 위치 저장
-        Debug.Log("Starting position: " + lastTilePosition);
-        Debug.Log("Initial maxReachedZ: " + maxReachedZ);
-        Debug.Log("Initial maxBackwardZ: " + maxBackwardZ);
+        lastTilePosition = targetPosition;
     }
 
     void Update()
@@ -86,10 +83,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (newPosition.z > lastTilePosition.z)
             {
-                lastTilePosition = newPosition; // 마지막 타일 위치 갱신
-                maxBackwardZ = newPosition.z; // 새로운 타일로 이동 시 뒤로 이동 가능 최대 Z 좌표 갱신
-                GameManager.Instance.IncreaseScore(); // 점수 증가
-                GameManager.Instance.GenerateTile(); // 타일 생성
+                lastTilePosition = newPosition;
+                maxBackwardZ = newPosition.z;
+                GameManager.Instance.uiManager.IncreaseScore(); // UIManager를 통해 점수 증가
+                GameManager.Instance.tileManager.GenerateTile(); // TileManager를 통해 타일 생성
                 Debug.Log("Moved to a new forward tile. Current position: " + lastTilePosition);
                 Debug.Log("Max backward Z reset to: " + maxBackwardZ);
             }
@@ -97,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (newPosition.z > maxReachedZ)
         {
-            maxReachedZ = newPosition.z; // 새로운 최고 Z 좌표 갱신
+            maxReachedZ = newPosition.z;
             Debug.Log("New maxReachedZ: " + maxReachedZ);
         }
 

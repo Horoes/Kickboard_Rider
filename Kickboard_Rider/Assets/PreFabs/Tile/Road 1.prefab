@@ -1903,6 +1903,7 @@ GameObject:
   - component: {fileID: 1354089941865762650}
   - component: {fileID: 4197269323915829907}
   - component: {fileID: 4835578928859108600}
+  - component: {fileID: -3003770427641840265}
   m_Layer: 0
   m_Name: Road 1
   m_TagString: Untagged
@@ -2037,6 +2038,19 @@ MonoBehaviour:
   - {fileID: 7447828227911366909, guid: f2c8ad4319c49e945981db77a3e5edd2, type: 3}
   - {fileID: 3121111299394615021, guid: a1285c50c8a47724bbd2cdeb77db797e, type: 3}
   obstacleSpeed: 5
+--- !u!114 &-3003770427641840265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7908045677402268676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 984b9611b732c3f4da672014ee26a3d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  helmet: {fileID: 5606357679208969294, guid: bd86ae965e925374685682bed7f006e7, type: 3}
 --- !u!1 &8651006663279786130
 GameObject:
   m_ObjectHideFlags: 0
