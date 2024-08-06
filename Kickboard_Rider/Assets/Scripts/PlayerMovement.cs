@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    // 기존 필드
+    private const float playerY = 0.3f;
     public float speed = 200.0f;
     public float moveDistance = 3.0f;
     public float minX = -12.0f;
@@ -16,9 +16,14 @@ public class PlayerMovement : MonoBehaviour
     private float maxReachedZ = -6f;
     private float maxBackwardZ = -6f;
 
+    // 스와이프 필드
+    private Vector2 swipeStart;
+    private Vector2 swipeEnd;
+    private bool isSwiping = false;
+
     void Start()
     {
-        targetPosition = new Vector3(0, 1, -6);
+        targetPosition = new Vector3(0, playerY, -6);
         transform.position = targetPosition;
         lastTilePosition = targetPosition;
     }
@@ -32,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             HandleInput();
+            HandleSwipe();
         }
 
         if (Input.GetKeyDown(KeyCode.N))
@@ -46,13 +52,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             SetTargetPosition(Vector3.forward);
+            LookInDirection(Vector3.forward);
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             if (transform.position.z - moveDistance >= maxBackwardZ - (2 * moveDistance))
             {
                 SetTargetPosition(Vector3.back);
-                Debug.Log("Moved backward. Current Z: " + targetPosition.z);
+                LookInDirection(Vector3.back);
             }
             else
             {
@@ -62,11 +69,74 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.A))
         {
             SetTargetPosition(Vector3.left);
+            LookInDirection(Vector3.left);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             SetTargetPosition(Vector3.right);
+            LookInDirection(Vector3.right);
         }
+    }
+
+    void HandleSwipe()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                swipeStart = touch.position;
+                isSwiping = true;
+            }
+            else if (touch.phase == TouchPhase.Ended && isSwiping)
+            {
+                swipeEnd = touch.position;
+                DetectSwipeDirection();
+                isSwiping = false;
+            }
+        }
+    }
+
+    void DetectSwipeDirection()
+    {
+        Vector2 swipeDelta = swipeEnd - swipeStart;
+
+        if (Mathf.Abs(swipeDelta.x) > Mathf.Abs(swipeDelta.y))
+        {
+            if (swipeDelta.x > 0)
+            {
+                SetTargetPosition(Vector3.right);
+                LookInDirection(Vector3.right);
+            }
+            else
+            {
+                SetTargetPosition(Vector3.left);
+                LookInDirection(Vector3.left);
+            }
+        }
+        else
+        {
+            if (swipeDelta.y > 0)
+            {
+                SetTargetPosition(Vector3.forward);
+                LookInDirection(Vector3.forward);
+            }
+            else
+            {
+                if (transform.position.z - moveDistance >= maxBackwardZ - (2 * moveDistance))
+                {
+                    SetTargetPosition(Vector3.back);
+                    LookInDirection(Vector3.back);
+                }
+            }
+        }
+    }
+
+    void LookInDirection(Vector3 direction)
+    {
+        Quaternion newRotation = Quaternion.LookRotation(direction);
+        transform.rotation = newRotation;
     }
 
     void SetTargetPosition(Vector3 direction)
@@ -85,8 +155,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 lastTilePosition = newPosition;
                 maxBackwardZ = newPosition.z;
-                GameManager.Instance.uiManager.IncreaseScore(); // UIManager를 통해 점수 증가
-                GameManager.Instance.tileManager.GenerateTile(); // TileManager를 통해 타일 생성
+                GameManager.Instance.uiManager.IncreaseScore();
+                GameManager.Instance.tileManager.GenerateTile();
                 Debug.Log("Moved to a new forward tile. Current position: " + lastTilePosition);
                 Debug.Log("Max backward Z reset to: " + maxBackwardZ);
             }
