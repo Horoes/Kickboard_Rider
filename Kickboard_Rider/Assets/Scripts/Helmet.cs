@@ -22,6 +22,7 @@ public class Helmet : MonoBehaviour
         {
             PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
             player.isHelmet = true;
+            Debug.Log("ee");
         }
 
         Destroy(gameObject);

@@ -12,17 +12,17 @@ public class UIHelmet : MonoBehaviour
 
     void Update()
     {
-        if (player != null && uiImage != null)
-        {
-            // 플레이어의 bool 값에 따라 이미지 변경
-            if (player.isHelmet)
-            {
-                uiImage.sprite = sprite1;
-            }
-            else
-            {
-                uiImage.sprite = sprite2;
-            }
-        }
+        //if (player != null && uiImage != null)
+        //{
+        //    // 플레이어의 bool 값에 따라 이미지 변경
+        //    if (player.isHelmet)
+        //    {
+        //        uiImage.sprite = sprite1;
+        //    }
+        //    else
+        //    {
+        //        uiImage.sprite = sprite2;
+        //    }
+        //}
     }
 }

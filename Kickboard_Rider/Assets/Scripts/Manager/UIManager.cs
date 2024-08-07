@@ -79,13 +79,23 @@ public class UIManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        //SceneManager.LoadScene("StartScene");
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }
 
     private void Update()
     {
+        // Android 플랫폼에서 뒤로가기 버튼 감지
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                // 일시정지 함수 호출
+                Debug.Log("뒤로가기 버튼");
+                Pause();
+            }
+        }
+
         if (isGameOver)
         {
             bool mouseClicked = Input.GetMouseButtonDown(0);
@@ -98,10 +108,10 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        
         if (player.isHelmet)
         {
             helmetUI.SetActive(true);
+            Debug.Log("helmet active");
         }
         else
         {

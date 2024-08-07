@@ -1073,9 +1073,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82854229ecc91140a726e1d86f5349b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 125316801}
-  offset: {x: 8, y: 0, z: -19.5}
-  heightOffset: 35
+  player: {fileID: 1709428014}
+  offset: {x: 5, y: 0, z: -15}
+  heightOffset: 20
   rotation: {x: 52, y: -20, z: 0}
 --- !u!1 &1010256271
 GameObject:
@@ -1523,7 +1523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd3a26578b38144194aa466fde73833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1709428017}
   uiImage: {fileID: 0}
   sprite1: {fileID: 0}
   sprite2: {fileID: 0}
@@ -1881,10 +1881,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1280, y: 720}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2013,6 +2013,24 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd86ae965e925374685682bed7f006e7, type: 3}
+--- !u!4 &1709428014 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3621052203639800254, guid: 5a519a2df77e82b4f8ba4e73ba2a612e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1647753909365406283}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1709428017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -897874148211926079, guid: 5a519a2df77e82b4f8ba4e73ba2a612e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1647753909365406283}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 910e927f425752141826d8bfb7fffd3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1846282988
 GameObject:
   m_ObjectHideFlags: 0
