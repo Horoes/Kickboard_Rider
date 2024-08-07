@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 swipeStart;
     private Vector2 swipeEnd;
     private bool isSwiping = false;
+    private float minSwipeDistance = 50f; // 스와이프 최소 거리
 
     // 게임오버 높이 설정
     private float gameOverHeight = -10f;
@@ -127,6 +128,15 @@ public class PlayerMovement : MonoBehaviour
                 swipeStart = touch.position;
                 isSwiping = true;
             }
+            else if (touch.phase == TouchPhase.Moved && isSwiping)
+            {
+                swipeEnd = touch.position;
+                if (Vector2.Distance(swipeStart, swipeEnd) >= minSwipeDistance)
+                {
+                    DetectSwipeDirection();
+                    isSwiping = false;
+                }
+            }
             else if (touch.phase == TouchPhase.Ended && isSwiping)
             {
                 swipeEnd = touch.position;
@@ -139,6 +149,12 @@ public class PlayerMovement : MonoBehaviour
     void DetectSwipeDirection()
     {
         Vector2 swipeDelta = swipeEnd - swipeStart;
+
+        if (swipeDelta.magnitude < minSwipeDistance)
+        {
+            // 스와이프 거리가 너무 짧으면 무시
+            return;
+        }
 
         if (Mathf.Abs(swipeDelta.x) > Mathf.Abs(swipeDelta.y))
         {

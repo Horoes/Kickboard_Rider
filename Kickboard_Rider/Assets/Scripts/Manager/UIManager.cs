@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI TotalText;
     private int score = 0;
     private bool isGameOver = false;
+    private bool isPaused = false; // 일시정지 상태를 나타내는 변수
 
     private void Awake()
     {
@@ -49,12 +50,14 @@ public class UIManager : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0f;
+        isPaused = true; // 일시정지 상태로 설정
         Debug.Log("Game paused.");
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1f;
+        isPaused = false; // 일시정지 상태 해제
         Debug.Log("Game resumed.");
     }
 
@@ -86,12 +89,24 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        // Android 플랫폼에서 뒤로가기 버튼 감지
-        if (Application.platform == RuntimePlatform.Android)
+        // 플랫폼에 상관없이 뒤로가기 버튼 감지
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Input.GetKey(KeyCode.Escape))
+            if (isGameOver)
             {
-                // 일시정지 함수 호출
+                // 게임이 종료된 상태에서 뒤로가기 버튼을 눌렀을 때
+                Debug.Log("게임 종료 - 뒤로가기 버튼");
+                Application.Quit();
+            }
+            else if (isPaused)
+            {
+                // 게임이 일시정지 상태에서 뒤로가기 버튼을 눌렀을 때
+                Debug.Log("게임 종료 - 일시정지 상태에서 뒤로가기 버튼");
+                Application.Quit();
+            }
+            else
+            {
+                // 게임이 종료되지도, 일시정지도 않은 상태에서 뒤로가기 버튼을 눌렀을 때
                 Debug.Log("뒤로가기 버튼");
                 Pause();
             }
