@@ -28,8 +28,8 @@ public class Animal : MonoBehaviour
             if (player != null && !player.isHelmet)
             {
                 Debug.Log("플레이어 충돌, isHelmet is false");
-                // 추가로 실행할 코드 작성
-                
+                GameManager.Instance.uiManager.GameOver();
+
             }
             else if (player != null && player.isHelmet)
             {
@@ -40,5 +40,4 @@ public class Animal : MonoBehaviour
 
         Destroy(gameObject);
     }
-
 }

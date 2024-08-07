@@ -20,6 +20,7 @@ public class TileManager : MonoBehaviour
     private int maxTileCount = 50;
     private Queue<GameObject> recentTiles = new Queue<GameObject>();
     private int consecutiveRoadCount = 0;
+    private GameObject lastTilePrefab;
 
     private void Awake()
     {
@@ -75,23 +76,50 @@ public class TileManager : MonoBehaviour
             GameObject oldTile = recentTiles.Dequeue();
             Destroy(oldTile);
         }
+
+        lastTilePrefab = selectedPrefab;
     }
 
     private GameObject SelectTilePrefab()
     {
         float randomValue = Random.Range(0f, 100f);
+        GameObject selectedPrefab;
 
         if (randomValue < 65f)
         {
-            return roadTilePrefab;
+            selectedPrefab = roadTilePrefab;
         }
         else if (randomValue < 90f)
         {
-            return grassTilePrefab;
+            selectedPrefab = grassTilePrefab;
         }
         else
         {
-            return sandTilePrefab;
+            selectedPrefab = sandTilePrefab;
         }
+
+        // Check if the last tile was a sand tile and select a different tile if so
+        if (lastTilePrefab == sandTilePrefab)
+        {
+            while (selectedPrefab == sandTilePrefab)
+            {
+                randomValue = Random.Range(0f, 100f);
+
+                if (randomValue < 65f)
+                {
+                    selectedPrefab = roadTilePrefab;
+                }
+                else if (randomValue < 90f)
+                {
+                    selectedPrefab = grassTilePrefab;
+                }
+                else
+                {
+                    selectedPrefab = sandTilePrefab;
+                }
+            }
+        }
+
+        return selectedPrefab;
     }
 }

@@ -79,6 +79,7 @@ public class UIManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        player.InitializePlayer();
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }

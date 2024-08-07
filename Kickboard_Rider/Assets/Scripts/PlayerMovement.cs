@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,29 +16,44 @@ public class PlayerMovement : MonoBehaviour
     public bool isHelmet = false;
     private float maxReachedZ = -6f;
     private float maxBackwardZ = -6f;
-
+    public bool isStep = false;
+    public bool isSand = false;
+    private Rigidbody rb;
     // 스와이프 필드
     private Vector2 swipeStart;
     private Vector2 swipeEnd;
     private bool isSwiping = false;
 
+    // 게임오버 높이 설정
+    private float gameOverHeight = -10f;
+
     void Start()
     {
-        targetPosition = new Vector3(0, playerY, -6);
-        transform.position = targetPosition;
-        lastTilePosition = targetPosition;
+        InitializePlayer();
     }
 
     void Update()
     {
-        if (isMoving)
+        if (isStep == false && isSand == true)
         {
-            MoveCharacter();
+            ActivateGravity();
+        }
+
+        if (rb.useGravity)
+        {
+            CheckGameOver();
         }
         else
         {
-            HandleInput();
-            HandleSwipe();
+            if (isMoving)
+            {
+                MoveCharacter();
+            }
+            else
+            {
+                HandleInput();
+                HandleSwipe();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.N))
@@ -45,6 +61,28 @@ public class PlayerMovement : MonoBehaviour
             isHelmet = true;
             Debug.Log("Helmet equipped");
         }
+    }
+
+    void ActivateGravity()
+    {
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        isMoving = false; // 이동 중지
+    }
+
+    void CheckGameOver()
+    {
+        if (transform.position.y < gameOverHeight)
+        {
+            GameOver();
+        }
+    }
+
+    void GameOver()
+    {
+        // 게임오버 처리 로직
+        Debug.Log("Game Over!");
+        GameManager.Instance.uiManager.GameOver();
     }
 
     void HandleInput()
@@ -182,5 +220,18 @@ public class PlayerMovement : MonoBehaviour
             transform.position = targetPosition;
             isMoving = false;
         }
+    }
+
+    public void InitializePlayer()
+    {
+        targetPosition = new Vector3(0, playerY, -6);
+        transform.position = targetPosition;
+        lastTilePosition = targetPosition;
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.isKinematic = true;
+        isMoving = false;
+        isStep = false;
+        isSand = false;
     }
 }
