@@ -2050,7 +2050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984b9611b732c3f4da672014ee26a3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  helmet: {fileID: 5606357679208969294, guid: bd86ae965e925374685682bed7f006e7, type: 3}
+  helmet: {fileID: 6060600038548519080, guid: 49c10245a5662aa438af8c263affee49, type: 3}
 --- !u!1 &8651006663279786130
 GameObject:
   m_ObjectHideFlags: 0

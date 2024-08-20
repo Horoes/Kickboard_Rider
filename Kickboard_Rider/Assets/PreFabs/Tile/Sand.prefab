@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d40f789844f2245b347779eb3703ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepPrefab: {fileID: 8328765233158593501, guid: 16dd9ead0b764854e9dc7b53d18e3b23,
+  stepPrefab: {fileID: 1244120544771171211, guid: 3eecaf7b6b92d5241b537423b77dd4ef,
     type: 3}
 --- !u!65 &2664456270731508192
 BoxCollider:

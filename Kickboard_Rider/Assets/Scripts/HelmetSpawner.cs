@@ -43,7 +43,7 @@ public class HelmetSpawner : MonoBehaviour
                 float treeX = startX + randomSection * tileHeight;
 
                 // 나무 생성 및 위치 설정
-                Vector3 treePosition = new Vector3(treeX, tilePosition.y, tilePosition.z); // y와 z축은 타일 위치 기준
+                Vector3 treePosition = new Vector3(treeX, 1, tilePosition.z); // y와 z축은 타일 위치 기준
                 GameObject treeInstance = Instantiate(helmet, treePosition, Quaternion.identity);
 
                 // 나무를 타일의 자식으로 설정

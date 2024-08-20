@@ -23,8 +23,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 swipeStart;
     private Vector2 swipeEnd;
     private bool isSwiping = false;
-    private float minSwipeDistance = 50f; // 스와이프 최소 거리
-
+    private float minSwipeDistance = 30f; // 스와이프 최소 거리
+    private bool isTouchActive = false;
+    private float touchStartTime;
     // 게임오버 높이 설정
     private float gameOverHeight = -10f;
 
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isStep == false && isSand == true)
         {
+            Debug.Log("Player is not on a Step and is on Sand. Gravity activated.");
             ActivateGravity();
         }
 
@@ -52,8 +54,8 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                HandleInput();
-                HandleSwipe();
+                HandleInput(); // 키보드 입력 우선 처리
+                HandleSwipeAndTouch(); // 스와이프와 터치를 함께 처리
             }
         }
 
@@ -61,6 +63,42 @@ public class PlayerMovement : MonoBehaviour
         {
             isHelmet = true;
             Debug.Log("Helmet equipped");
+        }
+    }
+
+    void HandleSwipeAndTouch()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    touchStartTime = Time.time; // 터치 시작 시간 기록
+                    swipeStart = touch.position; // 스와이프 시작 위치 기록
+                    isSwiping = true;
+                    break;
+                case TouchPhase.Moved:
+                    if (isSwiping)
+                    {
+                        swipeEnd = touch.position;
+                        if (Vector2.Distance(swipeStart, swipeEnd) >= minSwipeDistance)
+                        {
+                            DetectSwipeDirection();
+                            isSwiping = false;
+                        }
+                    }
+                    break;
+                case TouchPhase.Ended:
+                    if (isSwiping && Time.time - touchStartTime < 0.2f) // 짧은 터치는 일반 터치로 처리
+                    {
+                        SetTargetPosition(Vector3.forward);
+                        LookInDirection(Vector3.forward);
+                    }
+                    isSwiping = false; // 스와이프 종료
+                    break;
+            }
         }
     }
 
@@ -81,7 +119,6 @@ public class PlayerMovement : MonoBehaviour
 
     void GameOver()
     {
-        // 게임오버 처리 로직
         Debug.Log("Game Over!");
         GameManager.Instance.uiManager.GameOver();
     }
@@ -152,7 +189,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (swipeDelta.magnitude < minSwipeDistance)
         {
-            // 스와이프 거리가 너무 짧으면 무시
             return;
         }
 
@@ -249,5 +285,6 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
         isStep = false;
         isSand = false;
+        isTouchActive = false;
     }
 }

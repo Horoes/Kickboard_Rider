@@ -30,7 +30,23 @@ public class Step : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
-            player.isStep = false;
+
+            // 플레이어가 아직 다른 Step에 있지 않은 경우에만 isStep을 false로 설정
+            Collider[] colliders = Physics.OverlapSphere(other.transform.position, 0.2f);
+            bool isStillOnStep = false;
+            foreach (var col in colliders)
+            {
+                if (col.gameObject.CompareTag("Step"))
+                {
+                    isStillOnStep = true;
+                    break;
+                }
+            }
+
+            if (!isStillOnStep)
+            {
+                player.isStep = false;
+            }
         }
     }
 }
