@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     private int score = 0;
     private bool isGameOver = false;
     private bool isPaused = false; // 일시정지 상태를 나타내는 변수
+    public AudioClip clickSound; // 클릭 사운드
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -31,7 +33,12 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    void Start()
+    {
+        
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+    }
     public void UpdateScoreText()
     {
         if (scoreText != null && TotalText != null)
@@ -63,12 +70,14 @@ public class UIManager : MonoBehaviour
 
     public void Pause()
     {
+        audioSource.PlayOneShot(clickSound);
         pauseUI.SetActive(true);
         PauseGame();
     }
 
     public void Resume()
     {
+        audioSource.PlayOneShot(clickSound);
         pauseUI.SetActive(false);
         ResumeGame();
     }
@@ -89,24 +98,21 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        // 플랫폼에 상관없이 뒤로가기 버튼 감지
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isGameOver)
             {
-                // 게임이 종료된 상태에서 뒤로가기 버튼을 눌렀을 때
                 Debug.Log("게임 종료 - 뒤로가기 버튼");
                 Application.Quit();
             }
             else if (isPaused)
             {
-                // 게임이 일시정지 상태에서 뒤로가기 버튼을 눌렀을 때
                 Debug.Log("게임 종료 - 일시정지 상태에서 뒤로가기 버튼");
                 Application.Quit();
             }
             else
             {
-                // 게임이 종료되지도, 일시정지도 않은 상태에서 뒤로가기 버튼을 눌렀을 때
                 Debug.Log("뒤로가기 버튼");
                 Pause();
             }

@@ -21,8 +21,7 @@ public class Helmet : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
-            player.isHelmet = true;
-            Debug.Log("ee");
+            player.EquipHelmet();
         }
 
         Destroy(gameObject);

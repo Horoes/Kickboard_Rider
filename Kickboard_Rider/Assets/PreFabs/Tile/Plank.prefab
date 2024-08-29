@@ -72,7 +72,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a32132670185448468594be64291e836, type: 2}
+      objectReference: {fileID: 2100000, guid: 99e3f9b4e7476fb4ea041d0f2346e6ef, type: 2}
     - target: {fileID: 919132149155446097, guid: 84f45051f933ee145b053ac5d9e67a2e,
         type: 3}
       propertyPath: m_Name
@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbbe31f6029d11d418cb3561fddb11c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  step: {fileID: 8300000, guid: 1370b969124df8f4da0e7616c51c4e61, type: 3}
 --- !u!65 &2203803383101663760
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -133,5 +134,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.05, y: 1, z: 1.2}
+  m_Size: {x: 1.05, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

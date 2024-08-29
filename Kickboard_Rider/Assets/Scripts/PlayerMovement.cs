@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // 기존 필드
     private const float playerY = 0.3f;
     public float speed = 200.0f;
     public float moveDistance = 3.0f;
@@ -19,19 +18,29 @@ public class PlayerMovement : MonoBehaviour
     public bool isStep = false;
     public bool isSand = false;
     private Rigidbody rb;
-    // 스와이프 필드
+    private bool sandDieCheck = true;
+
     private Vector2 swipeStart;
     private Vector2 swipeEnd;
     private bool isSwiping = false;
     private float minSwipeDistance = 30f; // 스와이프 최소 거리
     private bool isTouchActive = false;
     private float touchStartTime;
+
     // 게임오버 높이 설정
     private float gameOverHeight = -10f;
+
+    public AudioClip movementSound; // 움직임 소리
+    public AudioClip sandDieSound;
+    public AudioClip helmetPickupSound;
+    private AudioSource audioSource;
+    private bool wasMoving;
 
     void Start()
     {
         InitializePlayer();
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
     void Update()
@@ -39,6 +48,10 @@ public class PlayerMovement : MonoBehaviour
         if (isStep == false && isSand == true)
         {
             Debug.Log("Player is not on a Step and is on Sand. Gravity activated.");
+            if (sandDieCheck) { 
+                audioSource.PlayOneShot(sandDieSound);
+                sandDieCheck = false;
+            }
             ActivateGravity();
         }
 
@@ -61,11 +74,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.N))
         {
-            isHelmet = true;
-            Debug.Log("Helmet equipped");
+            EquipHelmet();
         }
     }
-
+    public void EquipHelmet()
+    {
+        isHelmet = true;
+        audioSource.PlayOneShot(helmetPickupSound);
+        Debug.Log("Helmet equipped");
+    }
     void HandleSwipeAndTouch()
     {
         if (Input.touchCount > 0)
@@ -129,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
         {
             SetTargetPosition(Vector3.forward);
             LookInDirection(Vector3.forward);
+            audioSource.PlayOneShot(movementSound);
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -136,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 SetTargetPosition(Vector3.back);
                 LookInDirection(Vector3.back);
+                audioSource.PlayOneShot(movementSound);
             }
             else
             {
@@ -146,11 +165,13 @@ public class PlayerMovement : MonoBehaviour
         {
             SetTargetPosition(Vector3.left);
             LookInDirection(Vector3.left);
+            audioSource.PlayOneShot(movementSound);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             SetTargetPosition(Vector3.right);
             LookInDirection(Vector3.right);
+            audioSource.PlayOneShot(movementSound);
         }
     }
 
@@ -198,11 +219,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 SetTargetPosition(Vector3.right);
                 LookInDirection(Vector3.right);
+                audioSource.PlayOneShot(movementSound);
             }
             else
             {
                 SetTargetPosition(Vector3.left);
                 LookInDirection(Vector3.left);
+                audioSource.PlayOneShot(movementSound);
             }
         }
         else
@@ -211,6 +234,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 SetTargetPosition(Vector3.forward);
                 LookInDirection(Vector3.forward);
+                audioSource.PlayOneShot(movementSound);
             }
             else
             {
@@ -218,6 +242,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     SetTargetPosition(Vector3.back);
                     LookInDirection(Vector3.back);
+                    audioSource.PlayOneShot(movementSound);
                 }
             }
         }
@@ -274,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void InitializePlayer()
+    public void  InitializePlayer()
     {
         targetPosition = new Vector3(0, playerY, -6);
         transform.position = targetPosition;
@@ -285,6 +310,6 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
         isStep = false;
         isSand = false;
-        isTouchActive = false;
+        isTouchActive = false;    
     }
 }

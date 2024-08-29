@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Step : MonoBehaviour
 {
+    public AudioClip step;
+    private bool isSoundPlay;
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
-
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
     // Update is called once per frame
@@ -20,6 +24,7 @@ public class Step : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            audioSource.PlayOneShot(step);
             PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
             player.isStep = true;
         }
