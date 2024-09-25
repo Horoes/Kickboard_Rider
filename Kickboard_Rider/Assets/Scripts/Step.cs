@@ -5,28 +5,40 @@ using UnityEngine;
 public class Step : MonoBehaviour
 {
     public AudioClip step;
-    private bool isSoundPlay;
     private AudioSource audioSource;
-    // Start is called before the first frame update
-    void Start()
+    private Renderer stepRenderer;
+    public float fadeDuration = 2f;
+    public float respawnDelay = 1f;
+    private Color originalColor;
+    public GameObject stepPrefab;
+    private bool isFading = false;
+
+    private void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
-    }
+        stepRenderer = GetComponent<Renderer>();
+        originalColor = stepRenderer.material.color;
 
-    // Update is called once per frame
-    void Update()
-    {
-
+        stepRenderer.material.SetFloat("_Mode", 2);
+        stepRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        stepRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        stepRenderer.material.SetInt("_ZWrite", 0);
+        stepRenderer.material.DisableKeyword("_ALPHATEST_ON");
+        stepRenderer.material.EnableKeyword("_ALPHABLEND_ON");
+        stepRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        stepRenderer.material.renderQueue = 3000;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !isFading)
         {
             audioSource.PlayOneShot(step);
             PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
             player.isStep = true;
+
+            StartCoroutine(FadeOutAndDeactivate(player));
         }
     }
 
@@ -35,8 +47,6 @@ public class Step : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
-
-            // 플레이어가 아직 다른 Step에 있지 않은 경우에만 isStep을 false로 설정
             Collider[] colliders = Physics.OverlapSphere(other.transform.position, 0.2f);
             bool isStillOnStep = false;
             foreach (var col in colliders)
@@ -53,5 +63,34 @@ public class Step : MonoBehaviour
                 player.isStep = false;
             }
         }
+    }
+
+    private IEnumerator FadeOutAndDeactivate(PlayerMovement player)
+    {
+        float elapsedTime = 0f;
+        isFading = true;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            stepRenderer.material.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            yield return null;
+        }
+
+        if (player != null)
+        {
+            player.isStep = false;
+        }
+
+        yield return new WaitForSeconds(respawnDelay);
+        RespawnStep();
+
+        isFading = false;
+    }
+
+    private void RespawnStep()
+    {
+        stepRenderer.material.color = originalColor;
     }
 }

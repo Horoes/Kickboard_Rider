@@ -51,13 +51,13 @@ public class ObstacleSpawner : MonoBehaviour
 
     void OnDestroy()
     {
-        // RoadTile이 파괴될 때 코루틴을 중지시킵니다.
+        // RoadTile이 파괴될 때 코루틴을 중지
         if (spawnCoroutine != null)
         {
             StopCoroutine(spawnCoroutine);
         }
 
-        // 타일이 파괴될 때 해당 타일의 모든 자식 객체(장애물)도 함께 파괴합니다.
+        // 타일이 파괴될 때 해당 타일의 모든 자식 객체(장애물)도 함께 파괴
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);

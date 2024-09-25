@@ -115,6 +115,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   step: {fileID: 8300000, guid: 1370b969124df8f4da0e7616c51c4e61, type: 3}
+  fadeDuration: 2
+  respawnDelay: 1
+  stepPrefab: {fileID: 1244120544771171211}
 --- !u!65 &2203803383101663760
 BoxCollider:
   m_ObjectHideFlags: 0

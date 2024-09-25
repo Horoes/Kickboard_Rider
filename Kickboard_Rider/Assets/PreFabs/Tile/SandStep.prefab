@@ -118,3 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbbe31f6029d11d418cb3561fddb11c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  step: {fileID: 0}
+  fadeDuration: 2
+  respawnDelay: 1
+  stepPrefab: {fileID: 8328765233158593501}
