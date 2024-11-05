@@ -35,6 +35,7 @@ public class Animal : MonoBehaviour
             {
                 Debug.Log("플레이어 충돌, isHelmet is true");
                 player.isHelmet = false;
+                player.Helmet.SetActive(false);
             }
         }
 

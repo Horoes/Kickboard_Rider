@@ -36,6 +36,9 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource audioSource;
     private bool wasMoving;
 
+    [SerializeField]
+    public GameObject Helmet;
+
     void Start()
     {
         InitializePlayer();
@@ -80,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
     public void EquipHelmet()
     {
         isHelmet = true;
+        Helmet.SetActive(true);
         audioSource.PlayOneShot(helmetPickupSound);
         Debug.Log("Helmet equipped");
     }

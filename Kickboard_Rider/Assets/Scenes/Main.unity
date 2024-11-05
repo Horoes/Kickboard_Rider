@@ -210,6 +210,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -897874148211926079, guid: 5a519a2df77e82b4f8ba4e73ba2a612e,
         type: 3}
+      propertyPath: Helmet
+      value: 
+      objectReference: {fileID: 1424729938}
+    - target: {fileID: -897874148211926079, guid: 5a519a2df77e82b4f8ba4e73ba2a612e,
+        type: 3}
       propertyPath: MoveSound
       value: 
       objectReference: {fileID: 8300000, guid: 7dff535819fcc7343b18d63464667656, type: 3}
@@ -233,6 +238,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 181bb6561f91c314594fc9b85a6484d5, type: 2}
+    - target: {fileID: 2548715366452181936, guid: 5a519a2df77e82b4f8ba4e73ba2a612e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2870581810875860111, guid: 5a519a2df77e82b4f8ba4e73ba2a612e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -322,6 +332,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player_Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712965175855173665, guid: 5a519a2df77e82b4f8ba4e73ba2a612e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2126,6 +2141,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413025286}
   m_CullTransparentMesh: 1
+--- !u!1 &1424729938 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6712965175855173665, guid: 5a519a2df77e82b4f8ba4e73ba2a612e,
+    type: 3}
+  m_PrefabInstance: {fileID: 24737376}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1470133531
 GameObject:
   m_ObjectHideFlags: 0
